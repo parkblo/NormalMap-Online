@@ -1,0 +1,22 @@
+{
+  "name": "normalmap-batch-processor",
+  "version": "1.0.0",
+  "description": "Batch processor for NormalMap-Online using Node.js",
+  "main": "batch-processor.js",
+  "scripts": {
+    "start": "node batch-processor.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "path": "^0.12.7",
+    "puppeteer": "^21.5.0"
+  },
+  "keywords": [
+    "normalmap",
+    "texture",
+    "batch",
+    "processing"
+  ],
+  "author": "",
+  "license": "MIT"
+}
