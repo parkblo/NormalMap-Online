@@ -240,7 +240,7 @@ class BatchProcessor {
     }, fileData);
 
     console.log("맵 생성 완료 대기 중...");
-    await this.page.waitForTimeout(5000);
+    await this.page.waitForTimeout(1000);
 
     const mapStatus = await this.page.evaluate(() => {
       return {
@@ -254,6 +254,41 @@ class BatchProcessor {
     });
 
     console.log("맵 상태:", mapStatus);
+
+    console.log("커스텀 설정값 적용 중...");
+    await this.page.evaluate(() => {
+      document.getElementById("strength_nmb").value = 5;
+      document.getElementById("strength_slider").value = 5;
+      document.getElementById("level_nmb").value = 5;
+      document.getElementById("level_slider").value = 5;
+      document.getElementById("blur_sharp_nmb").value = 2;
+      document.getElementById("blur_sharp_slider").value = 2;
+      document.getElementById("dm_contrast_nmb").value = 0.11;
+      document.getElementById("dm_contrast_slider").value = 0.11;
+      document.getElementById("ao_strength_nmb").value = 0.78;
+      document.getElementById("ao_strength_slider").value = 0.78;
+      document.getElementById("specular_range_nmb").value = 0.75;
+      document.getElementById("specular_range_slider").value = 0.75;
+
+      NMO_NormalMap.setNormalSetting("strength", 5);
+      NMO_NormalMap.setNormalSetting("level", 5);
+      NMO_NormalMap.setNormalSetting("blur_sharp", 2);
+
+      NMO_DisplacementMap.setDisplacementSetting("contrast", 0.11);
+
+      NMO_AmbientOccMap.setAOSetting("strength", 0.78);
+
+      NMO_SpecularMap.setSpecularSetting("spec_range", 0.75);
+
+      console.log("설정값 적용 완료");
+
+      NMO_NormalMap.createNormalMap();
+      NMO_DisplacementMap.createDisplacementMap();
+      NMO_AmbientOccMap.createAmbientOcclusionTexture();
+      NMO_SpecularMap.createSpecularTexture();
+
+      console.log("커스텀 설정으로 맵 재생성 완료");
+    });
 
     const results = [];
     const includeNormal = true;
@@ -398,7 +433,7 @@ class BatchProcessor {
       for (const file of imageFiles) {
         const filePath = path.join(this.inputDir, file);
         await this.processFile(filePath);
-        await this.page.waitForTimeout(1000);
+        //await this.page.waitForTimeout(1000);
       }
 
       console.log("모든 파일 처리 완료");
