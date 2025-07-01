@@ -4,7 +4,7 @@
   "description": "Batch processor for NormalMap-Online using Node.js",
   "main": "batch-processor.js",
   "scripts": {
-    "start": "node batch-processor.js"
+    "start": "node batch.js"
   },
   "dependencies": {
     "fs-extra": "^11.1.1",
