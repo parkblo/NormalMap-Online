@@ -3,3 +3,4 @@
 /Pics/*
 /cubemaps/*
 node_modules
+.DS_Store
